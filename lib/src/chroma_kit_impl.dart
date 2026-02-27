@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 ///
 /// This extension handles common design challenges such as creating
 /// pastel shades, ensuring accessibility contrast, and safe hex parsing.
+/// chroma_kit_impl.dart
 extension ChromaKit on Color {
   // ==========================================================================
   // 1. OPACITY & TINTING
@@ -19,7 +20,7 @@ extension ChromaKit on Color {
     return withValues(alpha: safeFraction);
   }
 
-  /// An alias for [opacity] for backward compatibility.
+  /// An alias for transparency for backward compatibility.
   Color withOpacityFraction(double fraction) => transparency(fraction);
 
   /// Blends the color with pure white to create a solid pastel tint.
@@ -32,6 +33,7 @@ extension ChromaKit on Color {
 
     final Color blended = Color.lerp(this, Colors.white, safeFactor) ?? this;
     // Edge Case: Re-applies original alpha to ensure consistent transparency.
+    // Fixed: Using '.a' instead of '.opacity' to resolve static analysis warning.
     return blended.withValues(alpha: a);
   }
 
@@ -47,6 +49,7 @@ extension ChromaKit on Color {
     if (safeFactor == 0.0) return this;
 
     final Color blended = Color.lerp(this, other, safeFactor) ?? this;
+    // Fixed: Using '.a' for compatibility with latest Flutter API.
     return blended.withValues(alpha: a);
   }
 
@@ -83,6 +86,7 @@ extension ChromaKit on Color {
   /// Edge Case: If the color is highly transparent (alpha < 0.2), it assumes
   /// a light background and returns black for visibility.
   Color get contrastColor {
+    // Fixed: Using '.a' to resolve deprecation warning.
     if (a < 0.2) return Colors.black;
     return computeLuminance() > 0.5 ? Colors.black : Colors.white;
   }

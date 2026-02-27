@@ -7,29 +7,83 @@
 
 > A lightweight and professional Flutter toolkit for dynamic color manipulation and accessibility.
 
-ChromaKit simplifies common UI design challenges in Flutter such as:
-- Creating pastel shades
-- Managing transparency safely
-- Ensuring accessible text contrast
-- Parsing hex colors without crashes
-- Lightening and darkening colors programmatically
+ChromaKit simplifies common UI design challenges in Flutter:
+
+- 🎨 Creating pastel shades
+- 🟢 Managing transparency safely
+- ♿ Ensuring accessible text contrast
+- 🔢 Parsing hex colors without crashes
+- 🌗 Lightening and darkening colors programmatically
 
 Clean API. Zero complexity. Production ready.
 
 ---
 
+## ✨ Key Updates
+
+### v1.0.2
+- Added detailed side-by-side comparison example
+- Optimized for latest Flutter API (`.a` for alpha handling)
+- Improved documentation clarity
+- Standardized transparency API (`transparency()` as primary method)
+
+---
+
+## 📦 Installation
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  chroma_kit: ^1.0.2
+```
+
+Then run:
+
+```bash
+flutter pub get
+```
+
+---
+
+## 🛠️ Interactive Example
+
+Check out the example folder for a side-by-side comparison of original vs. modified colors:
+
+👉 https://github.com/Satyam-Gawali/chroma_kit/tree/main/example
+
+The example demonstrates:
+
+- Faint blending
+- Contrast detection
+- Transparency handling
+- Shade manipulation
+- Hex parsing
+
+---
+
 ## ✨ Features
 
+---
+
 ### 🟢 Smart Transparency
+
 Set alpha using a safe fraction (`0.0 – 1.0`) with automatic clamping.
 
 ```dart
-final transparentBlue = Colors.blue.withAlphaFactor(0.5);
+final transparentBlue = Colors.blue.transparency(0.5);
+```
+
+Alias (for backward compatibility):
+
+```dart
+final transparentBlue = Colors.blue.withOpacityFraction(0.5);
 ```
 
 ---
 
 ### 🎨 Pastel Blending (Faint)
+
 Create soft pastel versions of colors by blending with white while preserving original alpha.
 
 ```dart
@@ -39,11 +93,11 @@ final pastelRed = Colors.red.faint(0.8);
 ---
 
 ### ♿ Adaptive Contrast
+
 Automatically detect whether black or white provides better readability.
 
 ```dart
 Color textColor = myBackgroundColor.contrastColor;
-
 bool isDark = myColor.isDark;
 ```
 
@@ -55,15 +109,28 @@ Perfect for:
 
 ---
 
+### 🌗 Shade Manipulation
+
+Easily lighten or darken any color using simple factor-based methods.
+
+```dart
+final darker = Colors.blue.darken(0.2);
+final lighter = Colors.blue.lighten(0.2);
+```
+
+---
+
 ### 🔢 Safe Hex Utilities
 
 #### Convert Color → Hex
+
 ```dart
 String hex = Colors.blue.toHex();
 // Output: #FF2196F3
 ```
 
 #### Parse Hex → Color
+
 Supports:
 - #RRGGBB
 - #AARRGGBB
@@ -74,33 +141,6 @@ Color myColor = ChromaKit.fromHex('#FF6200EE');
 ```
 
 Built-in validation prevents crashes from invalid input.
-
----
-
-### 🌗 Shade Manipulation
-Easily lighten or darken any color using simple factor-based methods.
-
-```dart
-final darker = Colors.blue.darken(0.2);
-final lighter = Colors.blue.lighten(0.2);
-```
-
----
-
-## 📦 Installation
-
-Add to your `pubspec.yaml`:
-
-```yaml
-dependencies:
-  chroma_kit: ^1.0.0
-```
-
-Then run:
-
-```bash
-flutter pub get
-```
 
 ---
 
@@ -124,13 +164,13 @@ Container(
 
 Built with ❤️ by **Satyam Gawali**
 
-Computer Engineering Student  
-Flutter Developer  
-Passionate about high-performance apps and creative 3D experiences
+Computer Engineering  
+Flutter Developer
+
+Focused on building scalable, production-ready Flutter applications with clean architecture and maintainable code.
 
 🔗 GitHub: https://github.com/Satyam-Gawali  
-🔗 LinkedIn: www.linkedin.com/in/satyam-gawali-b4623b268
-
+🔗 LinkedIn: https://www.linkedin.com/in/satyam-gawali-b4623b268
 
 ---
 
