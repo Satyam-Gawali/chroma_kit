@@ -124,7 +124,7 @@ Container(
 
 Built with ❤️ by **Satyam Gawali**
 
-Third-Year Computer Engineering Student  
+Computer Engineering Student  
 Flutter Developer  
 Passionate about high-performance apps and creative 3D experiences
 
