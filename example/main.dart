@@ -27,7 +27,7 @@ class ChromaKitComparison extends StatelessWidget {
             title: 'Faint Utility',
             desc: 'Blends with white to create soft pastels while keeping alpha.',
             original: original,
-            modified: original.faint(0.7),
+            modified: original.pastel(0.7),
             info: 'Change: Lighter & Pastel, Preserved Alpha',
           ),
 

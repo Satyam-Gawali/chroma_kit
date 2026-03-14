@@ -2,7 +2,6 @@
 ///
 /// This library exports the core implementation of [ChromaKit] extensions,
 /// providing utilities for transparency, tinting, contrast, and hex parsing.
-/// chroma_kit.dart
-library chroma_kit;
+library;
 
 export 'src/chroma_kit_impl.dart';
