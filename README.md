@@ -6,8 +6,9 @@
 [![likes](https://img.shields.io/pub/likes/chroma_kit)](https://pub.dev/packages/chroma_kit/score)
 [![points](https://img.shields.io/pub/points/chroma_kit)](https://pub.dev/packages/chroma_kit/score)
 
-
 **A lightweight Flutter toolkit for dynamic color manipulation, accessibility utilities, and theme generation.**
+
+ChromaKit provides practical Flutter color utilities for building polished apps and design systems, including Flutter accessibility helpers, Material palette utilities, and a Material 3 ColorScheme generator.
 
 Installation • Features • Usage • API Reference • Contributing
 
@@ -15,57 +16,30 @@ Installation • Features • Usage • API Reference • Contributing
 
 ---
 
-## ✨ What's New in v1.1.0
+## ✨ What's New in v1.2.0
 
 ### 🚀 New Features
 
-- **`contrastRatio()`**  
-  Calculates the WCAG contrast ratio between two colors (range **1.0 – 21.0**).
+- **`generateColorScheme()`**  
+  Generate a complete Material 3 `ColorScheme` from a single source color.
 
-- **`isAccessibleOn()`**  
-  Validates accessibility compliance between text and background colors.
+- **`darkModeVariant()`**  
+  Create a dark-theme-friendly variant while preserving hue and vibrancy.
 
-- **`toMaterialColor()`**  
-  Generates a complete `MaterialColor` swatch for Flutter themes.
+- **`shadow()`**  
+  Build Material-style `BoxShadow` values directly from any color.
 
-- **`contrastColor` property**  
-  Automatically returns **black or white** text color based on readability.
+- **`nearestMaterialColorName`**  
+  Find the closest Flutter Material color shade name using palette matching.
 
----
+- **`isLight`**  
+  Add a convenient brightness helper alongside `isDark`.
 
-### 📝 API Improvements
+- **`ChromaKitUtils.fromString()`**  
+  Create deterministic UI-friendly colors from text values.
 
-Some APIs were renamed for better clarity and consistency:
-
-| Old Method | New Method |
-|-----------|------------|
-| `faint()` | `pastel()` |
-| `faintWith()` | `blendWith()` |
-| `faintWiths()` | `blendMany()` |
-
-Additional improvements:
-
-- Updated for **Flutter 3.27+**
-- Removed deprecated **`Color.value`** usage
-- Improved internal color precision
-
----
-
-### ⚠️ Deprecated
-
-The following method is deprecated but still supported for backward compatibility:
-
-
-withOpacityFraction()
-
-
-Please use:
-
-
-transparency()
-
-
-instead.
+- **`ChromaKitUtils.avatarColor()`**  
+  Produce consistent, avatar-friendly colors from user identifiers.
 
 ---
 
@@ -75,16 +49,28 @@ Add the package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  chroma_kit: ^1.1.0
+  chroma_kit: ^1.2.0
 ```
+
 Then run:
-```cmd
+
+```bash
 flutter pub get
 ```
 
 ---
 
+## 💡 Why ChromaKit?
 
+ChromaKit keeps common Flutter design system color work simple, consistent, and dependency-free.
+
+- Color manipulation helpers for opacity, blending, pastels, and shades
+- Flutter accessibility utilities for contrast and readable foreground colors
+- Material 3 ColorScheme generator and theme generation helpers
+- Material palette utilities for matching colors to Flutter Material shades
+- Deterministic avatar colors, string-based colors, and shadow generation
+
+---
 
 ## 🎯 Features at a Glance
 
@@ -93,9 +79,12 @@ flutter pub get
 | **Opacity** | `transparency()` | Safe alpha manipulation with auto-clamping |
 | **Pastel** | `pastel()` | Create soft, muted color variations |
 | **Blending** | `blendWith()`, `blendMany()` | Dynamic color mixing |
-| **Accessibility** | `contrastRatio()`, `isAccessibleOn()`, `contrastColor` | WCAG compliance tools |
+| **Accessibility** | `contrastRatio()`, `isAccessibleOn()`, `contrastColor`, `isDark`, `isLight` | Flutter accessibility and WCAG compliance tools |
 | **Shades** | `lighten()`, `darken()` | Quick brightness adjustments |
 | **Theming** | `toMaterialColor()` | Generate Material Design swatches |
+| **Theme Generation** | `generateColorScheme()`, `darkModeVariant()` | Build Material 3 themes from source colors |
+| **Material Intelligence** | `nearestMaterialColorName` | Match colors to the closest Material palette shade |
+| **Utilities** | `ChromaKitUtils.fromString()`, `ChromaKitUtils.avatarColor()`, `shadow()` | Deterministic colors and reusable UI effects |
 | **Hex** | `toHex()`, `ChromaKit.fromHex()` | Safe hex conversions |
 
 ---
@@ -103,6 +92,7 @@ flutter pub get
 ## 🚀 Example Usage
 
 ### 🟢 Smart Transparency
+
 ```dart
 // Safe alpha manipulation (automatically clamped 0.0–1.0)
 final transparentBlue = Colors.blue.transparency(0.5);
@@ -110,6 +100,7 @@ final fullyTransparent = Colors.red.transparency(1.5); // Clamps to 1.0
 ```
 
 ### 🎨 Pastel Colors
+
 ```dart
 // Create soft pastel versions (blend with white)
 final softRed = Colors.red.pastel(0.8); // 80% white blend
@@ -117,6 +108,7 @@ final mintGreen = Colors.green.pastel(); // Default 0.9 factor
 ```
 
 ### 🔄 Color Blending
+
 ```dart
 // Blend two colors
 final purple = Colors.blue.blendWith(Colors.red, 0.5);
@@ -144,9 +136,13 @@ final isAccessible = Colors.white.isAccessibleOn(
 
 // Get readable text color automatically
 final textColor = myBackground.contrastColor; // Returns black or white
+
+// Check brightness helpers
+final useDarkText = myBackground.isLight;
 ```
 
 ### 🌗 Shade Manipulation
+
 ```dart
 // Lighten or darken colors
 final darkerBlue = Colors.blue.darken(0.2);  // 20% darker
@@ -154,18 +150,81 @@ final lighterBlue = Colors.blue.lighten(0.2); // 20% lighter
 ```
 
 ### 🎨 Material Theme Generation
+
 ```dart
 // Generate complete MaterialColor swatch
 MaterialColor primarySwatch = Colors.teal.toMaterialColor();
 
 ThemeData(
   primarySwatch: Colors.blue.toMaterialColor(),
-  // Or use custom color
+);
+
+// Or use a custom color
+ThemeData(
   primarySwatch: const Color(0xFF6200EE).toMaterialColor(),
 );
 ```
 
+### 🌙 Dark Mode Variants
+
+```dart
+// Create a color variant designed for dark surfaces
+final darkBlue = Colors.blue.darkModeVariant();
+```
+
+### 🎨 Material 3 ColorScheme Generation
+
+```dart
+// Generate a light Material 3 ColorScheme from one source color
+final scheme =
+    Colors.deepPurple.generateColorScheme();
+
+ThemeData(
+  colorScheme: scheme,
+  useMaterial3: true,
+);
+
+// Generate a dark Material 3 ColorScheme
+final darkScheme = Colors.deepPurple.generateColorScheme(
+  brightness: Brightness.dark,
+);
+
+ThemeData(
+  colorScheme: darkScheme,
+  useMaterial3: true,
+);
+```
+
+### 🏷️ Nearest Material Color
+
+```dart
+// Match any color to the nearest Flutter Material palette shade
+final materialName = Colors.blue.nearestMaterialColorName; // "Blue 500"
+```
+
+### 👤 Avatar Colors
+
+```dart
+// Generate a consistent, avatar-friendly color from a user identifier
+final avatarColor = ChromaKitUtils.avatarColor('user_123');
+```
+
+### 🔤 String-Based Colors
+
+```dart
+// Generate deterministic colors from strings
+final flutterColor = ChromaKitUtils.fromString('Flutter');
+```
+
+### 🌫️ Shadows
+
+```dart
+// Create a Material-style BoxShadow from any color
+final blueShadow = Colors.blue.shadow();
+```
+
 ### 🔢 Hex Utilities
+
 ```dart
 // Color to hex
 String hex = Colors.blue.toHex(); // "#FF2196F3"
@@ -190,10 +249,13 @@ flutter run
 ```
 
 The example demonstrates:
+
 - 🔄 Live color manipulation
 - 👁️ Original vs modified color comparison
 - 📊 Accessibility ratio calculator
 - 🎨 Material swatch preview
+- 🌙 Dark mode color variants
+- 🧩 Material 3 ColorScheme generator
 - 🎯 Contrast checking visualization
 
 👉 **[View Example on GitHub](https://github.com/Satyam-Gawali/chroma_kit/tree/main/example)**
@@ -215,6 +277,9 @@ The example demonstrates:
 | `darken()` | `[factor: 0.1]` | `Color` | Blend with black |
 | `lighten()` | `[factor: 0.1]` | `Color` | Blend with white |
 | `toMaterialColor()` | none | `MaterialColor` | Generate theme swatch |
+| `darkModeVariant()` | none | `Color` | Create a dark-theme-friendly variant |
+| `shadow()` | `{blurRadius, spreadRadius, offset, opacity}` | `BoxShadow` | Generate a Material-style shadow |
+| `generateColorScheme()` | `{brightness: Brightness.light}` | `ColorScheme` | Generate a Material 3 ColorScheme |
 | `toHex()` | `{includeHash: true}` | `String` | Convert to hex string |
 
 ### Static Methods
@@ -222,6 +287,8 @@ The example demonstrates:
 | Method | Parameters | Return | Description |
 |--------|------------|--------|-------------|
 | `ChromaKit.fromHex()` | `hexString: String` | `Color` | Safely parse hex color |
+| `ChromaKitUtils.fromString()` | `text: String` | `Color` | Generate a deterministic color from text |
+| `ChromaKitUtils.avatarColor()` | `identifier: String` | `Color` | Generate an avatar-friendly deterministic color |
 
 ### Properties
 
@@ -229,6 +296,8 @@ The example demonstrates:
 |----------|------|-------------|
 | `contrastColor` | `Color` | Returns black/white for readability |
 | `isDark` | `bool` | Checks if color is dark |
+| `isLight` | `bool` | Checks if color is light |
+| `nearestMaterialColorName` | `String` | Returns the closest Flutter Material palette shade name |
 
 ---
 
@@ -246,11 +315,25 @@ genhtml coverage/lcov.info -o coverage/html
 ```
 
 Test coverage includes:
-- ✅ All color manipulation methods
+- ✅ Color utilities and manipulation methods
 - ✅ Edge cases (clamping, invalid inputs)
-- ✅ WCAG ratio calculations
-- ✅ Hex parsing validation
-- ✅ Material swatch generation
+- ✅ Flutter accessibility and WCAG ratio calculations
+- ✅ Theme generation and Material 3 ColorScheme output
+- ✅ Avatar colors and deterministic string colors
+- ✅ Material palette matching
+- ✅ Shadows and Material swatch generation
+
+---
+
+## 🛣️ Roadmap
+
+Future ideas:
+
+- Color Harmony Utilities (Complementary, Analogous, Triadic)
+- Gradient Generation
+- Dynamic Palette Generation
+- Advanced Theme Helpers
+- Material 3 Design Utilities
 
 ---
 
@@ -273,6 +356,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for detailed guidelines.
 
 - Flutter: `>=3.27.0`
 - Dart SDK: `>=3.6.0 <4.0.0`
+
 ---
 
 ## 📄 License
@@ -287,7 +371,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 **Built with ❤️ by [Satyam Gawali](https://github.com/Satyam-Gawali)**
 
-Computer Engineering Student | Flutter Developer
+Flutter Developer • Open Source Contributor
 
 [![GitHub](https://img.shields.io/badge/GitHub-Satyam--Gawali-blue?style=social&logo=github)](https://github.com/Satyam-Gawali)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Satyam%20Gawali-blue?style=social&logo=linkedin)](https://www.linkedin.com/in/satyam-gawali-b4623b268)

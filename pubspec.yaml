@@ -1,6 +1,6 @@
 name: chroma_kit
-description: A professional toolkit for dynamic color manipulation, pastel blending (faint), and accessibility contrast for Flutter.
-version: 1.1.0
+description: A professional Flutter toolkit for color manipulation, accessibility, theme generation, blending, Material palettes, and color utilities.
+version: 1.2.0
 repository: https://github.com/Satyam-Gawali/chroma_kit
 
 environment:
